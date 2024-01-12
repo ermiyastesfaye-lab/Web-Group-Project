@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="output.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body>
+<body data-page="edit">
     <header>
         <div class="hidden lg:flex lg:justify-between lg:items-center py-7 lg:px-[150px] bg-black">
             <div class="font-bold text-6xl text-white"><span class="text-backg2">እርሻ</span>.com</div>
@@ -55,27 +55,27 @@
             <div class="container__form__inputs w-full">
                 <label class="label text-xs font-bold " for="name">Crop Name</label><br />
                 <div class="input-container position-relative my-2 w-full flex">
-                    <input  id="name-input" type="text" name="name" class="w-full px-4 py-2 border rounded-md">
+                    <input  id="crop-name" type="text" name="name" class="w-full px-4 py-2 border rounded-md">
                 </div>
                 <label class="label text-xs font-bold " for="email">Crop Type</label><br />
                 <div class="input-container position-relative my-2 w-full flex">
-                    <input id="email-input" type="email" name="email" class="w-full px-4 py-2 border rounded-md">
+                    <input id="crop-type" type="email" name="email" class="w-full px-4 py-2 border rounded-md">
                 </div>
                 <label class="label text-xs font-bold " for="newpassword">Planting Date</label><br />
                 <div class="input-container position-relative my-2 w-full flex">
-                    <input  id="password-input" type="date" name="newpassword" class="w-full px-4 py-2 border rounded-md">
+                    <input  id="planting-date" type="date" name="newpassword" class="w-full px-4 py-2 border rounded-md">
                 </div>
                 <label class="label text-xs font-bold " for="passwordcheck">Harvesting Date</label><br />
                 <div class="input-container position-relative my-2 w-full flex">
-                    <input  id="confirmPassword-input" type="date" name="passwordcheck" class="w-full px-4 py-2 border rounded-md">
+                    <input  id="harvesting-date" type="date" name="passwordcheck" class="w-full px-4 py-2 border rounded-md">
                 </div>
                 <label class="label text-xs font-bold " for="passwordcheck">Planting Field</label><br />
                 <div class="input-container position-relative my-2 w-full flex">
-                    <input  id="confirmPassword-input" type="text" name="passwordcheck" class="w-full px-4 py-2 border rounded-md">
+                    <input  id="planting-field" type="text" name="passwordcheck" class="w-full px-4 py-2 border rounded-md">
                 </div>
             </div>
             <div class="btn flex justify-center items-center w-full py-2.5">
-                <button class="button text-white font-bold rounded-lg position-relative p-2.5 border-none w-full bg-backg2" onclick="simulateFormSubmission()">update</button>
+                <button class="button text-white font-bold rounded-lg position-relative p-2.5 border-none w-full bg-backg2" onclick="editSubmission()">update</button>
             </div>
         </div>
     </main>

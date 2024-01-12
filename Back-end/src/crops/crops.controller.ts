@@ -7,7 +7,7 @@ export class CropsController {
   constructor(private readonly cropsService: CropsService) {}
 
   @Post()
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   async addCrops(
     @Body('name') cropName: string,
     @Body('plantingField') plantingField: string,
@@ -20,20 +20,20 @@ export class CropsController {
   }
 
   @Get()
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   async getAllCrops() {
     const crops = await this.cropsService.getCrops();
     return crops;
   }
 
   @Get(':id')
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   getCrop(@Param('id') cropId: string) {
     return this.cropsService.getSingleCrop(cropId);
   }
 
   @Patch(':id')
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   async updateCrop(
     @Param('id') cropId: string,
     @Body('name') cropName: string,
@@ -47,7 +47,7 @@ export class CropsController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   async removeCrop(@Param('id') cropId: string) {
     await this.cropsService.deleteCrop(cropId);
     return 'you have succesfully deleted the crop details';
