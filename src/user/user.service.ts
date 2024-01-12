@@ -30,6 +30,10 @@ export class UserService {
     return this._getUserDetails(user);
   }
 
+  async findAll(): Promise<UserDetails[]> {
+    const users = await this.userModel.find().exec();
+    return users.map(user => this._getUserDetails(user));
+  }
   async create(
     name: string,
     email: string,

@@ -1,5 +1,16 @@
-var agree = document.querySelector(".agree");
-var button = document.querySelector(".button");
+let agree = document.querySelector(".agree");
+let button = document.querySelector(".button");
+let nam = document.querySelector("#name-input");
+let email = document.querySelector("#email-input");
+let password = document.querySelector("#password-input");
+let confirm = document.querySelector("#confirmPassword-input");
+let nameError = document.querySelector("#nameError");
+let emailError = document.querySelector("#emailError");
+let passwordError = document.querySelector("#passwordError");
+let confirmError = document.querySelector("#confirmError");
+let confirmMatch = document.querySelector("#confirmMatch");
+let isValid = true;
+
 if (agree) {
     agree.addEventListener("change", function () {
         if (agree.checked) {
@@ -12,23 +23,22 @@ if (agree) {
         }
     });
 }
-var send = document.querySelector("#signUp");
-if (send) {
-    send.addEventListener("click", function () {
-        validateAndSubmitForm();
+
+var signUp = document.querySelector("#signUp");
+var logIn = document.querySelector("#logIn");
+if (signUp) {
+    signUp.addEventListener("click", function () {
+        validateRegistration();
     });
 }
-function validateAndSubmitForm() {
-    var nam = document.querySelector("#name-input");
-    var email = document.querySelector("#email-input");
-    var password = document.querySelector("#password-input");
-    var confirm = document.querySelector("#confirmPassword-input");
-    var nameError = document.querySelector("#nameError");
-    var emailError = document.querySelector("#emailError");
-    var passwordError = document.querySelector("#passwordError");
-    var confirmError = document.querySelector("#confirmError");
-    var confirmMatch = document.querySelector("#confirmMatch");
-    var isValid = true;
+
+if (logIn) {
+    logIn.addEventListener("click", function () {
+        validateLogIn();
+    });
+}
+
+async function validateRegistration() {
     if (nam) {
         if (nam.value.trim() === "") {
             nameError.classList.remove("hidden");
@@ -73,19 +83,91 @@ function validateAndSubmitForm() {
         }
     }
     if (isValid) {
-        setTimeout(function () {
-            alert("message sent successfully");
-        }, 50);
+        nam = nam.value;
+        email = email.value;
+        password = password.value;
+
+        try {
+            const response = await fetch('http://localhost:3000/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: nam, email, password })
+            });
+
+            const data = await response.json();
+            alert("Successful");
+        } catch (error) {
+            console.error('Error during signup:', error);
+        }
     }
 }
+
+async function validateLogIn(){
+    if (email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value.trim())) {
+            emailError.classList.remove("hidden");
+            isValid = false;
+        }
+        else {
+            emailError.classList.add("hidden");
+        }
+    }
+    if (password) {
+        if (password.value.trim() === "") {
+            passwordError.classList.remove("hidden");
+            isValid = false;
+        }
+        else {
+            passwordError.classList.add("hidden");
+        }
+    }
+    if (isValid) {
+        enteredEmail = email.value;
+        enteredPassword = password.value;
+
+            const response = await fetch('http://localhost:3000/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ enteredEmail, enteredPassword })
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                // Handle the response from the server
+                if (data.accessToken) {
+                    // Store the JWT in local storage or a secure cookie
+                    localStorage.setItem('accessToken', data.accessToken);
+
+                    // Redirect to the authenticated page or perform other actions
+                    window.location.href = 'add.html';
+                } else {
+                    // Display an error message
+                    alert('Login failed. Please check your credentials.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during login:', error);
+            });
+
+        }
+        
+    }
 var mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-// Get the mobile navigation
 var mobileNavigation = document.querySelector("#mobile-nav");
-// Check if elements exist before adding event listener
+
 if (mobileMenuToggle && mobileNavigation) {
-    // Add click event listener to the toggle button
+    
     mobileMenuToggle.addEventListener("click", function () {
-        // Toggle the 'hidden' class on the mobile navigation
+  
         mobileNavigation.classList.toggle("hidden");
     });
 }
+
+
+//Fetching API
